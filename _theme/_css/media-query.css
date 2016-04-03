@@ -1,0 +1,11 @@
+.dashboard-header { 
+	font-style: normal;
+	font-size: 28px;
+}
+/*  ----------- */
+@media (min-width: 300px) and (max-width: 500px) {
+	.dashboard-header { 
+		font-style: normal;
+		font-size: 18px;
+	}
+}

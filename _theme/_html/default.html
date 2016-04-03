@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        <title>%TITLE%</title>
+
+        %STYLESHEET%
+        %JAVASCRIPT%
+    </head>
+
+    <body class="hold-transition skin-blue sidebar-mini %COLLAPSE%"><!--sidebar-collapse-->
+    <!-- Site wrapper -->
+        <div class="wrapper">
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="index.php" class="logo">
+                    <span class="logo-mini"><b>R</b>H<i style='color:#ED4A7B;' class="fa fa-fw fa-heartbeat"></i></span><!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-lg"><b>Realtor</b>Heart<i style='color:#ED4A7B;' class="fa fa-fw fa-heartbeat"></i></span><!-- logo for regular state and mobile devices -->
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <div class="navbar-custom-menu">
+                        <!--%NAVEBAR_MENU%-->
+                    </div>
+                </nav>
+            </header>
+            <!-- =============================================== -->
+            <!-- Left side column. contains the sidebar -->
+            <aside class="main-sidebar">
+                <section class="sidebar" style="height: auto;">
+                    <ul class="sidebar-menu">
+                        %LEFT_SIDEBAR%
+                    </ul>
+                </section>
+            </aside>
+            <!-- =============================================== -->
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <h1>
+                        %HEADER%
+                        <small>%SUB_HEADER%</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        %BREADCRUMB%
+                    </ol>
+                </section>
+                <section class="content">
+                    %CONTENT%
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
+
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 0.0.1
+                </div>
+                <strong>Copyright &copy; 2016 <a href="#">RealtorHeart</a>.</strong> All rights reserved.
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+    </body>
+</html>
