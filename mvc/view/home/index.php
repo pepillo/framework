@@ -44,48 +44,6 @@ function app_event_default($template, $values){
     $template->write('<b>HELLO MOTO</b>');
 }
 
-function app_event_test_pdf($template, $values){
-    // instantiate and use the dompdf class
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml('<h1>hello world</h1>');
-    // (Optional) Setup the paper size and orientation
-    $dompdf->setPaper('A4', 'landscape');
-    // Render the HTML as PDF
-    $dompdf->render();
-    // Output the generated PDF to Browser
-    //$dompdf->stream();
-    //$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
-    //exit(0);
-    //$dompdf->output();
-    //$dompdf->outputHtml();
-    //$template->write($dompdf->output(),true);
-    $x = '<iframe type="application/pdf"
-                width="95%"
-                height="95%"
-                src="data:application/pdf;">
-          Oops, you have no support for iframes.
-        </iframe></p';
-
-    $y = '<embed width="600" height="450" src="?r=home&a=pdf&content='.urlencode($dompdf->output()).'" type="application/pdf"></embed>';
-
-    #or
-
-    
-   
-    $template->write($y);
-    //$template->write($x);
-}
-
-function app_event_pdf($template, $values){
-    $content = $values['content'];
-    header('Cache-Control: public'); 
-    header('Content-Type: application/pdf');
-    header('filename="some-file.pdf"');
-    //header('Content-Length: '.filesize($content));
-
-    echo $content;
-}
-
 function app_end(){
 
 }
