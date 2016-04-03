@@ -468,3 +468,62 @@ Stack trace:
 #2 /Users/Jose/Dropbox/www/framework/index.php(14): template->proccessAppEvent(Array)
 #3 {main}
   thrown in /Users/Jose/Dropbox/www/framework/mvc/controller/client.php on line 52
+[03-Apr-2016 05:19:04 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'use' (T_USE) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 52
+[03-Apr-2016 05:19:38 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'Dompdf' not found in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:54
+Stack trace:
+#0 /Users/Jose/Dropbox/www/framework/engine/framework/framework_template.php(307): app_event_pdf(Object(template), Array)
+#1 /Users/Jose/Dropbox/www/framework/index.php(14): template->proccessAppEvent(Array)
+#2 {main}
+  thrown in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 54
+[03-Apr-2016 05:21:17 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'use' (T_USE) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 52
+[03-Apr-2016 05:23:27 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'Dompdf' (T_STRING), expecting \\ (T_NS_SEPARATOR) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 52
+[03-Apr-2016 05:23:35 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'use' (T_USE) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 52
+[03-Apr-2016 05:32:38 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'Dompdf' not found in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:54
+Stack trace:
+#0 /Users/Jose/Dropbox/www/framework/engine/framework/framework_template.php(307): app_event_pdf(Object(template), Array)
+#1 /Users/Jose/Dropbox/www/framework/index.php(14): template->proccessAppEvent(Array)
+#2 {main}
+  thrown in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 54
+[03-Apr-2016 05:32:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'Dompdf' not found in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:54
+Stack trace:
+#0 /Users/Jose/Dropbox/www/framework/engine/framework/framework_template.php(307): app_event_pdf(Object(template), Array)
+#1 /Users/Jose/Dropbox/www/framework/index.php(14): template->proccessAppEvent(Array)
+#2 {main}
+  thrown in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 54
+[03-Apr-2016 05:32:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'Dompdf' not found in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:54
+Stack trace:
+#0 /Users/Jose/Dropbox/www/framework/engine/framework/framework_template.php(307): app_event_pdf(Object(template), Array)
+#1 /Users/Jose/Dropbox/www/framework/index.php(14): template->proccessAppEvent(Array)
+#2 {main}
+  thrown in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 54
+[03-Apr-2016 05:48:12 Europe/Berlin] PHP Parse error:  syntax error, unexpected '}' in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 62
+[03-Apr-2016 06:02:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function base64() in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:65
+Stack trace:
+#0 /Users/Jose/Dropbox/www/framework/engine/framework/framework_template.php(307): app_event_pdf(Object(template), Array)
+#1 /Users/Jose/Dropbox/www/framework/index.php(14): template->proccessAppEvent(Array)
+#2 {main}
+  thrown in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 65
+[03-Apr-2016 06:10:38 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$dompdf' (T_VARIABLE) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 69
+[03-Apr-2016 06:14:27 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:14:27 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:78) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:14:27 Europe/Berlin] PHP Notice:  Use of undefined constant content - assumed 'content' in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:14:39 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:14:39 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:78) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:25:10 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:25:10 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:78) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:28:36 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:28:36 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:78) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 78
+[03-Apr-2016 06:43:37 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 81
+[03-Apr-2016 06:43:37 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:81) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 81
+[03-Apr-2016 06:44:49 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 81
+[03-Apr-2016 06:44:49 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:81) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 81
+[03-Apr-2016 06:45:00 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 81
+[03-Apr-2016 06:45:00 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:81) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 81
+[03-Apr-2016 06:45:41 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:45:41 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:80) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:45:42 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:45:42 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:80) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:45:43 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:45:43 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:80) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:46:14 Europe/Berlin] PHP Warning:  filesize() expects parameter 1 to be a valid path, string given in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
+[03-Apr-2016 06:46:14 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php:80) in /Users/Jose/Dropbox/www/framework/mvc/view/home/index.php on line 80
