@@ -173,7 +173,7 @@ function app_event_test_pdf($template, $values){
     //$template->write($x);
 }
 
-function app_event_pdf($template, $values){
+function app_event_pdf2($template, $values){
     $content = $values['content'];
     header('Cache-Control: public'); 
     header('Content-Type: application/pdf');
