@@ -67,6 +67,10 @@ function app_event_test_pdf($template, $values){
         </iframe></p';
 
     $y = '<embed width="600" height="450" src="?r=home&a=pdf&content='.urlencode($dompdf->output()).'" type="application/pdf"></embed>';
+
+    #or
+
+    
    
     $template->write($y);
     //$template->write($x);
@@ -77,7 +81,7 @@ function app_event_pdf($template, $values){
     header('Cache-Control: public'); 
     header('Content-Type: application/pdf');
     header('filename="some-file.pdf"');
-    header('Content-Length: '.filesize($content));
+    //header('Content-Length: '.filesize($content));
 
     echo $content;
 }
