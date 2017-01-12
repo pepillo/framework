@@ -45,8 +45,8 @@ class controller_client{
     }
 
     public static function removeClient($uid){
-        //$client = model_client::byId($uid);
-        //$client->save($data);
+        #$client = model_client::byId($uid);
+        #$client->save($data);
         global $db;
 
         $db->where('uid', $uid);
