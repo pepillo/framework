@@ -1,8 +1,0 @@
-[03-Apr-2016 23:24:04 Europe/Berlin] PHP Fatal error:  Cannot redeclare app_event_pdf() (previously declared in /Users/Jose/Dropbox/www/framework/mvc/view/example/index.php:96) in /Users/Jose/Dropbox/www/framework/mvc/view/example/index.php on line 184
-[04-Apr-2016 00:02:58 Europe/Berlin] PHP Fatal error:  Cannot redeclare app_event_pdf() (previously declared in /Users/Jose/Dropbox/www/framework/mvc/view/example/index.php:96) in /Users/Jose/Dropbox/www/framework/mvc/view/example/index.php on line 184
-[04-Apr-2016 00:03:30 Europe/Berlin] PHP Fatal error:  Cannot redeclare app_event_pdf() (previously declared in /Users/Jose/Dropbox/www/framework/mvc/view/example/index.php:96) in /Users/Jose/Dropbox/www/framework/mvc/view/example/index.php on line 184
-[11-Jan-2017 21:20:19 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /Applications/MAMP/htdocs/framework/mvc/controller/client.php on line 62
-[11-Jan-2017 21:20:25 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /Applications/MAMP/htdocs/framework/mvc/controller/client.php on line 62
-[11-Jan-2017 21:20:31 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /Applications/MAMP/htdocs/framework/mvc/controller/client.php on line 62
-[12-Jan-2017 04:34:06 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /Applications/MAMP/htdocs/framework/mvc/controller/client.php on line 62
-[12-Jan-2017 04:34:13 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /Applications/MAMP/htdocs/framework/mvc/controller/client.php on line 62
