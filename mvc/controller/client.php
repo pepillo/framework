@@ -49,13 +49,15 @@ class controller_client{
         //$client = model_client::byId($uid);
         //$client->save($data);
         global $db;
-        
+
         $db->where('uid', $uid);
         $db->delete('client');
     }
 
     public static function getUserClients($user_id=null, $return_obj=false){
         $clients = model_client::where("user_id", $user_id)->get();
+
+        if(is_null($clients)) return [];
 
         $clients_array = [];
 
