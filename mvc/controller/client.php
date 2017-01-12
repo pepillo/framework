@@ -2,7 +2,6 @@
 require_once(MVC_MODEL.'client.php');
 
 class controller_client{
-
     public function __construct(){
 
     }
