@@ -130,7 +130,7 @@ function app_event_client_show($template, $values){
     $template->write($container);
     //$template->write($clients, true);
     //
-    $responsive=
+    $responsive =
     '<!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
