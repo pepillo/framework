@@ -6,7 +6,8 @@ session_start();
 $framework = new framework();
 #TODO catch error and send to error page
 
-$framework->error_log->displayLog(true);
+#Set to false to hide error display in browser
+$framework->error_log->displayLog(false);
 
 global $ARGUMENT_VALUES;
 $ARGUMENT_VALUES = $framework->server_attr['ARGUMENT_VALUES'];

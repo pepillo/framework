@@ -58,7 +58,7 @@ class system_error_log{
 
     public function __construct($log_file = null, $log_bool = true){
         if(!is_null($log_file)){
-            #TODOValidate if file exist
+            #TODO Validate if file exist
             $this->log_file = $log_file;
         } else {
             $this->log_file = LOG_DIR.'error_log.log';
@@ -70,21 +70,24 @@ class system_error_log{
     }
 
     public function displayLog($enable=false){
+        error_reporting(E_ALL | E_STRICT);
+        ini_set("log_errors", 1);
+
         if($enable == true){
             #View all errors
             ini_set('display_startup_errors',1);
             ini_set('display_errors',1);
-            error_reporting(E_ALL | E_STRICT);
         } else {
             #Disable Error Display
             ini_set('display_errors', 'Off');
-            ini_set("log_errors", 1);
         }
     }
 
     private function trackLog(){
         #Enable Log error for trail
         #tail -f error_log.log
+
+        ini_set("log_errors", 'on');
         ini_set("error_log", $this->log_file);
     }
 }
