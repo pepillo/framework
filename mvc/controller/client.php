@@ -2,6 +2,7 @@
 require_once(MVC_MODEL.'client.php');
 
 class controller_client{
+
     public function __construct(){
 
     }
@@ -29,14 +30,18 @@ class controller_client{
 
     public static function addClient($data){
         unset($data['id']);
+
         $client = new model_client($data);
         $id = $client->save();
 
         if ($id == null) {
             //print_r($client->errors);
             //echo $db->getLastError;
-        } //else
+            return false;
+        } else {
             //echo "user created with id = " . $id;
+            return true;
+        }
     }
 
     public static function updateClient($data){
@@ -45,8 +50,8 @@ class controller_client{
     }
 
     public static function removeClient($uid){
-        #$client = model_client::byId($uid);
-        #$client->save($data);
+        //$client = model_client::byId($uid);
+        //$client->save($data);
         global $db;
 
         $db->where('uid', $uid);

@@ -1,3 +1,12 @@
 log/
 **/.DS_Store
 *.DS_Store
+
+# Compiled source #
+###################
+*.log
+
+# OS generated files #
+######################
+*.DS_Store
+*.DS_Store?

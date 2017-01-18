@@ -7,12 +7,13 @@ class ctr_dropdown{
     public $style = '';
     public $list = '';
 
-    public function __construct($label, $name, $value='', $list=[], $style=''){
-        $this->name = $name;
-        $this->label = $label;
-        $this->value = $value;
-        $this->style = $style;
-        $this->list = $list;
+    public function __construct($label, $name, $value='', $list=[], $place_holder='Select...', $style='width: 100%;'){
+        $this->name         = $name;
+        $this->label        = $label;
+        $this->value        = $value;
+        $this->style        = $style;
+        $this->list         = $list;
+        $this->place_holder = $place_holder;
     }
 
     private function getOptionList(){
@@ -32,11 +33,13 @@ class ctr_dropdown{
     }
 
     public function getHTML(){
+        $id = 'select_uid_'.uniqid();
+
         $html = "<div class='form-group row'>
-                    <label class='col-sm-2 control-label' style='text-align: right;'>{$this->label}: </label>
+                    <label for='{$id}' class='col-sm-2 control-label' style='text-align: right;'>{$this->label}: </label>
                     <div class='col-sm-10'>
-                        <select name='{$this->name}' class='form-control select2' style='{$this->style}'>
-                              <option value=''>Select...</option>
+                        <select id='{$id}' name='{$this->name}' class='form-control select2' style='{$this->style}'>
+                              <option value=''>{$this->place_holder}</option>
                               {$this->getOptionList()}
                         </select>
                     </div>

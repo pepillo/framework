@@ -248,7 +248,6 @@ function app_event_client_edit($template, $values){
     $item = new ctr_hidden('id', $client['id']);
     $container->appendItem($item);
 
-
     $item = new ctr_text('Name', 'name', $client['name'], 'Input Name...');
     $container->appendItem($item);
 
@@ -261,29 +260,8 @@ function app_event_client_edit($template, $values){
     $item = new ctr_dropdown('Location', 'current_location', $client['current_location'], $pueblos);
     $container->appendItem($item);
 
-    ################################################################################################
-    $opts = '';
-
-    foreach ($pueblos as $key => $value) {
-        $opts .= "<option value='{$key}'>{$value}</option>";
-    }
-
-    $input =
-    "<div class='row'>
-        <label class='col-sm-2 control-label' style='text-align: right;padding-top:15px;'>Search Location: </label>
-        <div class='col-sm-6' style='float:left; padding-left:10px;padding-top:15px;padding-bottom:15px;'>
-            <select name='search_location[]' class='form-control select2' multiple='multiple' data-placeholder='Select a State' style='width: 100%;'>
-              {$opts}
-            </select>
-        </div>
-     </div>";
-
-    $container->appendItem($input);
-    ################################################################################################
-    if(!empty($client['search_location'])){
-        $item = new ctr_label('Search Location', $client['search_location']);
-        $container->appendItem($item);
-    }
+    $item = new ctr_multibox('Search Location', 'search_location', $client['search_location'], $pueblos);
+    $container->appendItem($item);
 
     $item = new ctr_currency('Income', 'income', $client['income'], 'width:100px;');
     $container->appendItem($item);
@@ -308,8 +286,6 @@ function app_event_client_edit($template, $values){
 
     $item = new ctr_slider('Spouse Credit', 'spouse_credit_score', $client['spouse_credit_score'], [300,850]);
     $container->appendItem($item);
-
-
 
     $container->addSubmitBtn(($client['id']==-1) ? 'Add Client' : 'Update Client');
     $template->write($container);

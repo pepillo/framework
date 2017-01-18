@@ -28,7 +28,7 @@ class ctr_currency{
                     </div>
                  </div>";
 
-        $js = "<script>$('#{$id}').inputmask('{$this->mask}', { numericInput: true });</script>";
+        $js = "<script>$('#{$id}').inputmask('{$this->mask}', { numericInput: true, placeholder: ''});</script>";
 
         return $html.$js;
     }
