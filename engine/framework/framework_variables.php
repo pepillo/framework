@@ -27,5 +27,4 @@ define('MVC_DIR',              $web_root.'mvc/');
 define('MVC_CONTROLLER',       MVC_DIR.'controller/');
 define('MVC_MODEL',            MVC_DIR.'model/');
 define('MVC_VIEW',             MVC_DIR.'view/');
-
 ?>

@@ -99,6 +99,8 @@ class template{
     }
 
     public function authValidation($use_auth = null){
+        global $user_login;
+
         if($use_auth != true) return;
 
         #TODO se if can change header to a redirect inside owne class,
@@ -108,6 +110,8 @@ class template{
         $redirect_to_login = true;
 
         if(isset($_SESSION['user_session'])){
+            $user_login = $_SESSION['user_session'];
+            
             if($_SESSION['user_session']['login_stamp'] + $idletime > time()){
                 $_SESSION['user_session']['login_stamp'] = time();
                 $redirect_to_login = false;

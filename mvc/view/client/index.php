@@ -92,6 +92,8 @@ function app_start($template, $values){
 }
 
 function app_event_client_show($template, $values){
+    global $user_login;
+
     $template->setTitle('Client Manager');
     $template->setHeader('Client Manager', 'Manage you clients data');
     $template->setBreadcrumb(['Clients'=>null]);
@@ -104,10 +106,11 @@ function app_event_client_show($template, $values){
     $table->addHeader('search_location','Location Interest');
 
     //$table->addAction('eye',    'r=client&a=client_view&uid=uid%');
-    $table->addAction('pencil', 'r=client&a=client_edit&uid=uid%');
-    $table->addAction('trash',  'r=client&a=client_remove&uid=uid%');
+    $table->addAction('pencil',      'r=client&a=client_edit&uid=uid%');
+    $table->addAction('trash',       'r=client&a=client_remove&uid=uid%');
+    $table->addAction('file-text-o', 'r=client&a=client_log&uid=uid%');
 
-    $clients = controller_client::getUserClients(1);
+    $clients = controller_client::getUserClients($user_login['uid']);
     foreach ($clients as $client) {
         $table->addRow($client);
     }
@@ -129,84 +132,35 @@ function app_event_client_show($template, $values){
 
     $template->write($container);
     //$template->write($clients, true);
-    //
-    $responsive =
-    '<!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th>ID</th>
-                  <th>User</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Reason</th>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>John Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Alexander Pierce</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-warning">Pending</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-                <tr>
-                  <td>657</td>
-                  <td>Bob Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-primary">Approved</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Mike Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-danger">Denied</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->';
-
-      //$template->write($responsive);
 }
 
 function app_event_client_save($template, $values){
-    //echo "<pre>".print_r($values,true)."</pre>";exit;
+    global $user_login;
+
     $data = [
-        'id' => $values['id'],
-        'user_id' => 1,
-        'uid' => uniqid(),
-        'name' => $values['name'],
-        'email' => $values['email'],
-        'phone' => $values['phone'],
-        'current_location' => $values['current_location'],
-        'search_location' => (isset($values['search_location'])) ? implode(",", $values['search_location']) : '',
-        'income' => $values['income'],
-        'debt' => $values['debt'],
-        'credit_score' => $values['credit_score'],
-        'note' => (isset($values['note'])) ? $values['note'] : '',
-        'marriage_contract' => (isset($values['marriage_contract'])) ? 1 : 0,
-        'spouse_name' => $values['spouse_name'],
-        'spouse_income' => $values['spouse_income'],
+        'id'                  => $values['id'],
+        'uid'                 => $values['uid'],
+        'user_uid'            => $user_login['uid'],
+        'name'                => $values['name'],
+        'email'               => $values['email'],
+        'phone'               => $values['phone'],
+        'current_location'    => $values['current_location'],
+        'search_location'     => (isset($values['search_location'])) ? implode(",", $values['search_location']) : '',
+        'income'              => $values['income'],
+        'debt'                => $values['debt'],
+        'credit_score'        => $values['credit_score'],
+        'note'                => (isset($values['note'])) ? $values['note'] : '',
+        'marriage_contract'   => (isset($values['marriage_contract'])) ? 1 : 0,
+        'spouse_name'         => $values['spouse_name'],
+        'spouse_income'       => $values['spouse_income'],
         'spouse_credit_score' => $values['spouse_credit_score'],
     ];
 
-    //echo "<pre>".print_r($data,true)."</pre>";exit;
-
     if($data['id'] > 0){
-        //update
-        controller_client::updateClient($data);
+        controller_client::updateEntry($data);
     } else {
-        //add
-        controller_client::addClient($data);
+        $data['uid'] = uniqid();
+        controller_client::addEntry($data);
     }
 
     header('location: ?r=client&a=client_show');
@@ -217,13 +171,18 @@ function app_event_client_view($template, $values){
     //$template->write(get_all_client(), true);
 }
 
+function app_event_client_log($template, $values){
+    $template->write($values, true);
+    //$template->write(get_all_client(), true);
+}
+
 function app_event_client_edit($template, $values){
-    global $pueblos;
+    global $pueblos, $user_login;;
 
     if(isset($values['uid'])){
         $client = controller_client::getByUID($values['uid']);
     } else {
-        $client = controller_client::newClient();
+        $client = controller_client::newEntry();
     }
 
     $name = 'New Client';
@@ -246,6 +205,9 @@ function app_event_client_edit($template, $values){
     $container->appendItem($item);
 
     $item = new ctr_hidden('id', $client['id']);
+    $container->appendItem($item);
+
+    $item = new ctr_hidden('uid', $client['uid']);
     $container->appendItem($item);
 
     $item = new ctr_text('Name', 'name', $client['name'], 'Input Name...');
@@ -292,7 +254,7 @@ function app_event_client_edit($template, $values){
 }
 
 function app_event_client_remove($template, $values){
-    controller_client::removeClient($values['uid']);
+    controller_client::remove($values['uid']);
     header('location: ?r=client&a=client_show');
 }
 

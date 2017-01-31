@@ -10,6 +10,7 @@ $framework = new framework();
 $framework->error_log->displayLog(true);
 
 global $ARGUMENT_VALUES;
+
 $ARGUMENT_VALUES = $framework->server_attr['ARGUMENT_VALUES'];
 
 $framework->template->proccessAppEvent($ARGUMENT_VALUES);

@@ -1,40 +1,36 @@
 <?php
-class model_client extends dbObject {
-    protected $dbTable = "client";
+class model_client extends storage {
+    protected $dbTable    = "client";
     protected $primaryKey = "id";
-    protected $dbFields = Array (
-        'id'                  => Array('int'),
-        'user_id'             => Array('int'),
-        'uid'                 => Array('text'),
-        'name'                => Array('text'),
-        'email'               => Array('text'),
-        'phone'               => Array('text'),
-        'current_location'    => Array('text'),
-        'search_location'     => Array('text'),
-        'income'              => Array('text'),
-        'debt'                => Array('text'),
-        'credit_score'        => Array('text'),
-        'note'                => Array('text'),
-        'marriage_contract'   => Array('bool'),
-        'spouse_name'         => Array('text'),
-        'spouse_income'       => Array('text'),
-        'spouse_credit_score' => Array('text'),
-        'attr'                => Array('text'),
-        'stamp'               => Array('datetime'),
-    );
-    protected $timestamps = Array ('stamp');
-    #TODO relation with user db
+    protected $timestamps = ['stamp'];
 
-    public static function getArrayFields(){
-        $client_db = new model_client();
-        $array = [];
+    protected $dbFields   = [
+        'id'                  => ['int'],
+        'user_uid'            => ['text'],
+        'uid'                 => ['text'],
+        'name'                => ['text'],
+        'email'               => ['text'],
+        'phone'               => ['text'],
+        'current_location'    => ['text'],
+        'search_location'     => ['text'],
+        'income'              => ['text'],
+        'debt'                => ['text'],
+        'credit_score'        => ['text'],
+        'note'                => ['text'],
+        'marriage_contract'   => ['bool'],
+        'spouse_name'         => ['text'],
+        'spouse_income'       => ['text'],
+        'spouse_credit_score' => ['text'],
+        'attr'                => ['text'],
+        'stamp'               => ['datetime'],
+    ];
 
-        foreach ($client_db->dbFields as $key => $value) {
-            $array[$key] = '';
-        }
-
-        return $array;
+    public static function getFields(){
+        $object = new model_client();
+        return $object->dbFields;
     }
+
+    #TODO relation with user db
 }
 ?>
 <?php

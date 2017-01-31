@@ -5,6 +5,7 @@ use Dompdf\Dompdf;
 function app_start($template, $values){
     $template->menu->addMenuHeader('MAIN NAVIGATION');
     $template->menu->addMenuElement('Dashboard', 'dashboard', 'r=home&a=dashboard', null);
+    $template->menu->addMenuElement('Logout', 'sign-out', 'r=auth_user&a=logout', null);
     /*
     $template->menu->addMenuElement('Test', 'book', [
         ['label' => 'Default','href' => 'r=home&a=default'],
@@ -41,7 +42,7 @@ function app_event_dashboard($template, $values){
 }
 
 function app_event_default($template, $values){
-    $template->write('<b>HELLO MOTO</b>');
+    
 }
 
 function app_end(){

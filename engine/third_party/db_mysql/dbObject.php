@@ -7,7 +7,7 @@
  * @author    Alexander V. Butenko <a.butenka@gmail.com>
  * @copyright Copyright (c) 2015
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
- * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class 
+ * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class
  * @version   2.6-master
  *
  * @method int count ()
@@ -403,7 +403,7 @@ class dbObject {
             $key = $objectName . "id";
 	if (!$primaryKey)
             $primaryKey = $joinObj->primaryKey;
-		
+
         $joinStr = MysqliDb::$prefix . $this->dbTable . ".{$key} = " .
                     MysqliDb::$prefix . "{$joinObj->dbTable}.{$primaryKey}";
         $this->db->join ($joinObj->dbTable, $joinStr, $joinType);
@@ -522,11 +522,11 @@ class dbObject {
                 $obj = new $modelName;
                 $table = $obj->dbTable;
                 $primaryKey = $obj->primaryKey;
-				
+
                 if (!isset ($data[$table])) {
                     $data[$name] = $this->$name;
                     continue;
-                } 
+                }
                 if ($data[$table][$primaryKey] === null) {
                     $data[$name] = null;
                 } else {
