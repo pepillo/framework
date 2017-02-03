@@ -4,8 +4,10 @@ class controller_main{
 
     }
 
-    public static function getByUID($uid='', $validate_user=true){
+    public static function getByUID($uid='', $validate_user=true, $validate_visible=true){
         global $user_login;
+
+        if(empty($uid)) return null;
 
         $model = self::getModel();
 
@@ -15,19 +17,23 @@ class controller_main{
             $rs->where("user_uid", $user_login['uid']);
         }
 
+        if($validate_visible){
+            $rs->where("visible", 1);
+        }
+
         $rs->getOne();
 
-        if(!is_null($rs)){
+        if($rs->count > 0){
             return $rs->toArray();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public static function newEntry(){
         $model = self::getModel();
 
-        $rs = $model::getArrayFields($has_uid);
+        $rs = $model::getArrayFields();
         $rs['id']  = -1;
 
         if(isset($rs['uid'])){
@@ -55,7 +61,7 @@ class controller_main{
         }
     }
 
-    public static function updateEntry($data, $validate_user=true){
+    public static function updateEntry($data, $validate_user=true, $validate_visible=true){
         global $user_login;
 
         $model = self::getModel();
@@ -66,12 +72,16 @@ class controller_main{
             $rs->where("user_uid", $user_login['uid']);
         }
 
+        if($validate_visible){
+            $rs->where("visible", 1);
+        }
+
         $rs->getOne();
 
         $rs->update($data);
     }
 
-    public static function remove($uid, $validate_user=true){
+    public static function remove($uid, $validate_user=true, $make_invisible=true){
         global $db, $user_login;;
 
         $table = self::getTable();
@@ -82,7 +92,12 @@ class controller_main{
             $db->where('user_uid', $user_login['uid']);
         }
 
-        $db->delete($table);
+        if($make_invisible){
+            $db->update($table, ['visible'=>0]);
+            return;
+        }
+
+        //$db->delete($table);
     }
 
     private static function getModel(){

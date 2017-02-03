@@ -72,6 +72,52 @@ class template{
         return $contents;
     }
 
+    private function showAlert(){
+        $alert = isset($_SESSION["framework_global_alerts"]) ? $_SESSION["framework_global_alerts"] : null;
+
+        if(!is_array($alert)) return;
+
+        $fn = $alert['function'];
+        $alert_obj = new ctr_alert($alert['title'], $alert['body']);
+        $html = $alert_obj->$fn()->getHTML();
+
+        $this->addVariable('%ALERT%', $html);
+
+        $_SESSION["framework_global_alerts"] = null;
+    }
+
+    public function showSuccess($title='', $body=''){
+        $_SESSION["framework_global_alerts"] = [
+            'title'    => $title,
+            'body'     => $body,
+            'function' => 'success',
+        ];
+    }
+
+    public function showWarning($title='', $body=''){
+        $_SESSION["framework_global_alerts"] = [
+            'title'    => $title,
+            'body'     => $body,
+            'function' => 'warning',
+        ];
+    }
+
+    public function showInfo($title='', $body=''){
+        $_SESSION["framework_global_alerts"] = [
+            'title'    => $title,
+            'body'     => $body,
+            'function' => 'info',
+        ];
+    }
+
+    public function showError($title='', $body=''){
+        $_SESSION["framework_global_alerts"] = [
+            'title'    => $title,
+            'body'     => $body,
+            'function' => 'error',
+        ];
+    }
+
     public function write($content = '', $debug=false){
         $template_content = '';
 
@@ -111,7 +157,7 @@ class template{
 
         if(isset($_SESSION['user_session'])){
             $user_login = $_SESSION['user_session'];
-            
+
             if($_SESSION['user_session']['login_stamp'] + $idletime > time()){
                 $_SESSION['user_session']['login_stamp'] = time();
                 $redirect_to_login = false;
@@ -298,12 +344,15 @@ class template{
         if($event_exist == true){
             #Initialize Header
             if($this->template_source == THEME_HTML.'default.html'){
-                $this->variable_replace['%HEADER%'] = '';
-                $this->variable_replace['%SUB_HEADER%'] = '';
-                $this->variable_replace['%BREADCRUMB%'] = '';
+                $this->variable_replace['%HEADER%']       = '';
+                $this->variable_replace['%SUB_HEADER%']   = '';
+                $this->variable_replace['%BREADCRUMB%']   = '';
                 $this->variable_replace['%LEFT_SIDEBAR%'] = '';
-                $this->variable_replace['%CONTENT%'] = '';
+                $this->variable_replace['%CONTENT%']      = '';
+                $this->variable_replace['%ALERT%']        = '';
             }
+
+            $this->showAlert();
 
             $this->proccessInitializeApplication();
             $this->proccessAppStart($this, $values);

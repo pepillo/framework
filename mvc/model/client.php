@@ -22,6 +22,7 @@ class model_client extends storage {
         'spouse_income'       => ['text'],
         'spouse_credit_score' => ['text'],
         'attr'                => ['text'],
+        'visible'             => ['bool'],
         'stamp'               => ['datetime'],
     ];
 

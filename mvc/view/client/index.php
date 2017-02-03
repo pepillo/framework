@@ -8,87 +8,6 @@ function app_start($template, $values){
     $template->menu->addMenuElement('Dashboard', 'dashboard', 'r=home&a=dashboard', null);
     $template->menu->addMenuHeader('Client Manager');
     $template->menu->addMenuElement('My Clients', 'user', 'r=client&a=client_show', null);
-
-    $pueblos = [
-        'Adjuntas'      => 'Adjuntas',
-        'Aguada'        => 'Aguada',
-        'Aguadilla'     => 'Aguadilla',
-        'Aguas Buenas'  => 'Aguas Buenas',
-        'Aibonito'      => 'Aibonito',
-        'Añasco'        => 'Añasco',
-        'Arecibo'       => 'Arecibo',
-        'Arroyo'        => 'Arroyo',
-        'Barceloneta'   => 'Barceloneta',
-        'Barranquitas'  => 'Barranquitas',
-        'Bayamón'       => 'Bayamón',
-        'Cabo Rojo'     => 'Cabo Rojo',
-        'Caguas'        => 'Caguas',
-        'Camuy'         => 'Camuy',
-        'Canóvanas'     => 'Canóvanas',
-        'Carolina'      => 'Carolina',
-        'Cataño'        => 'Cataño',
-        'Cayey'         => 'Cayey',
-        'Ceiba'         => 'Ceiba',
-        'Ciales'        => 'Ciales',
-        'Cidra'         => 'Cidra',
-        'Coamo'         => 'Coamo',
-        'Comerí'        => 'Comerí',
-        'Corozal'       => 'Corozal',
-        'Culebra'       => 'Culebra (Isla municipio)',
-        'Dorado'        => 'Dorado',
-        'Fajardo'       => 'Fajardo',
-        'Florida'       => 'Florida',
-        'Guánica'       => 'Guánica',
-        'Guayama'       => 'Guayama',
-        'Guayanilla'    => 'Guayanilla',
-        'Guaynabo'      => 'Guaynabo',
-        'Gurabo'        => 'Gurabo',
-        'Hatillo'       => 'Hatillo',
-        'Hormigueros'   => 'Hormigueros',
-        'Humacao'       => 'Humacao',
-        'Isabela'       => 'Isabela',
-        'Jayuya'        => 'Jayuya',
-        'Juana Díaz'    => 'Juana Díaz',
-        'Juncos'        => 'Juncos',
-        'Lajas'         => 'Lajas',
-        'Lares'         => 'Lares',
-        'Las Marías'    => 'Las Marías',
-        'Las Piedras'   => 'Las Piedras',
-        'Loíza'         => 'Loíza',
-        'Luquill'       => 'Luquill',
-        'Manatí'        => 'Manatí',
-        'Maricao'       => 'Maricao',
-        'Maunabo'       => 'Maunabo',
-        'Mayagüez'      => 'Mayagüez',
-        'Moca'          => 'Moca',
-        'Morovis'       => 'Morovis',
-        'Naguabo'       => 'Naguabo',
-        'Naranjito'     => 'Naranjito',
-        'Orocovis'      => 'Orocovis',
-        'Patillas'      => 'Patillas',
-        'Peñuelas'      => 'Peñuelas',
-        'Ponce'         => 'Ponce',
-        'Quebradillas'  => 'Quebradillas',
-        'Rincón'        => 'Rincón',
-        'Río Grande'    => 'Río Grande',
-        'Sabana Grande' => 'Sabana Grande',
-        'Salinas'       => 'Salinas',
-        'San Germán'    => 'San Germán',
-        'San Juan'      => 'San Juan',
-        'San Lorenzo'   => 'San Lorenzo',
-        'San Sebastián' => 'San Sebastián',
-        'Santa Isabel'  => 'Santa Isabel',
-        'Toa Alt'       => 'Toa Alt',
-        'Toa Baja'      => 'Toa Baja',
-        'Trujillo Alto' => 'Trujillo Alto',
-        'Utuado'        => 'Utuado',
-        'Vega Alta'     => 'Vega Alta',
-        'Vega Baja'     => 'Vega Baja',
-        'Vieques'       => 'Vieques (Isla municipio)',
-        'Villalba'      => 'Villalba',
-        'Yabucoa'       => 'Yabucoa',
-        'Yauco'         => 'Yauco',
-    ];
 }
 
 function app_event_client_show($template, $values){
@@ -105,10 +24,9 @@ function app_event_client_show($template, $values){
     $table->addHeader('phone','Phone');
     $table->addHeader('search_location','Location Interest');
 
-    //$table->addAction('eye',    'r=client&a=client_view&uid=uid%');
-    $table->addAction('pencil',      'r=client&a=client_edit&uid=uid%');
-    $table->addAction('trash',       'r=client&a=client_remove&uid=uid%');
-    $table->addAction('file-text-o', 'r=client&a=client_log&uid=uid%');
+    $table->addAction('address-card-o', 'r=client&a=client_view&uid=uid%');
+    $table->addAction('pencil',         'r=client&a=client_edit&uid=uid%');
+    $table->addAction('trash',          'r=client&a=client_remove&uid=uid%');
 
     $clients = controller_client::getUserClients($user_login['uid']);
     foreach ($clients as $client) {
@@ -124,14 +42,10 @@ function app_event_client_show($template, $values){
     $container->appendItem($item);
 
     $container->setTitle('Client List');
-    //$container->addLinkBtn('Add Client', 'r=client&a=client_add');
     $container->addSubmitBtn('Add Client');
     $container->appendItem($table);
 
-    //$container->appendItem("<a href='?r=client&a=client_add'>Add Client</a>");
-
     $template->write($container);
-    //$template->write($clients, true);
 }
 
 function app_event_client_save($template, $values){
@@ -163,26 +77,155 @@ function app_event_client_save($template, $values){
         controller_client::addEntry($data);
     }
 
+    $template->showSuccess('Client has been '.(($data['id'] > 0) ? 'updated.' : 'saved.'));
+
     header('location: ?r=client&a=client_show');
 }
 
 function app_event_client_view($template, $values){
-    $template->write($values, true);
-    //$template->write(get_all_client(), true);
-}
+    global $user_login;
 
-function app_event_client_log($template, $values){
-    $template->write($values, true);
-    //$template->write(get_all_client(), true);
+    $client_uid = isset($values['uid']) ? $values['uid'] : null;
+    $client = controller_client::getByUID($client_uid);
+
+    if(is_null($client)){
+        $template->setBreadcrumb(['Error'=>null]);
+        $callout = new ctr_callout('Error', 'Client not found.');
+
+        $template->write($callout->error());
+        return;
+    }
+
+    $template->setTitle('Client Manager');
+    $template->setHeader('Client - '.$client['name'], 'View clients data');
+    $template->setBreadcrumb(['Clients'=>'r=client&a=client_show', $client['name']=>null]);
+
+    $container_multi = ui_container_multi::newContainerMulti(6);
+
+    #CLIENT INFO
+    $container = ui_container::newContainer();
+    $container->setTitle('Client Information', 'address-card-o');
+
+    $item = new ctr_label('Name', $client['name']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Email', $client['email']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Phone', $client['phone']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Marriage Contract', $client['marriage_contract_display']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Location', $client['current_location']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Search Locations', $client['search_location_display']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Note', $client['note']);
+    $container->appendItem($item);
+
+    $container_multi->appendItem($container);
+
+    ####################################################################################
+
+    #CLIENT FINANCE INFO
+    $container = ui_container::newContainer();
+    $container->setTitle('Client Finance Information', 'money');
+
+    $item = new ctr_label('Income', '$'.$client['income']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Debt', '$'.$client['debt']);
+    $container->appendItem($item);
+
+    $item = new ctr_slider('Credit Score', 'credit_score', $client['credit_score'], [300,850]);
+    $container->appendItem($item);
+
+    $container_multi->appendItem($container);
+
+    ####################################################################################
+
+    #CLIENT SPOUSE FINANCE INFO
+    $container = ui_container::newContainer();
+    $container->setTitle('Spouse Information', 'street-view');
+
+    $item = new ctr_label('Name', $client['spouse_name']);
+    $container->appendItem($item);
+
+    $item = new ctr_label('Income', '$'.$client['spouse_income']);
+    $container->appendItem($item);
+
+    $item = new ctr_slider('Credit Score', 'credit_score', $client['spouse_credit_score'], [300,850]);
+    $container->appendItem($item);
+
+    $container_multi->appendItem($container);
+
+    $template->write($container_multi);
+
+    ####################################################################################
+
+    #ADD CLIENT COMMENT LOG
+    $container = ui_container::newContainer();
+    $container->setTitle('Add Client Comments', 'plus-square');
+
+    $item = new ctr_hidden('r', 'client');
+    $container->appendItem($item);
+
+    $item = new ctr_hidden('a', 'client_add_client_log');
+    $container->appendItem($item);
+
+    $item = new ctr_hidden('client_uid', $client['uid']);
+    $container->appendItem($item);
+
+    $item = new ctr_text_box('Comment', 'comment', '', 'Enter a comment for this client...', 2);
+    $container->appendItem($item);
+
+    $container->addSubmitBtn('Add Comment');
+
+    $template->write($container);
+
+    ####################################################################################
+
+    #CLIENT COMMENT LOG
+    $container = ui_container::newContainer();
+    $container->setTitle('Client Comments', 'calendar');
+
+    $table = ui_table_list::newTable('table_log');
+
+    $table->addHeader('stamp_display', 'Date', '200');
+    $table->addHeader('comment','Comment');
+
+    $client_logs = controller_client::getClientLogs($user_login['uid'], $client['uid']);
+
+    foreach($client_logs as $log){
+        $table->addRow($log);
+    }
+
+    $container->appendItem($table);
+
+    $template->write($container);
 }
 
 function app_event_client_edit($template, $values){
-    global $pueblos, $user_login;;
+    global $pueblos, $user_login;
 
-    if(isset($values['uid'])){
-        $client = controller_client::getByUID($values['uid']);
+    $client_uid = isset($values['uid']) ? $values['uid'] : null;
+
+    if(!is_null($client_uid)){
+        $client = controller_client::getByUID($client_uid);
     } else {
         $client = controller_client::newEntry();
+    }
+
+    if(is_null($client)){
+        $template->setBreadcrumb(['Error'=>null]);
+        $callout = new ctr_callout('Error', 'Client not found.');
+
+        $template->write($callout->error());
+        return;
     }
 
     $name = 'New Client';
@@ -254,8 +297,27 @@ function app_event_client_edit($template, $values){
 }
 
 function app_event_client_remove($template, $values){
+    if(!isset($values['uid'])){
+        $template->setBreadcrumb(['Error'=>null]);
+        $callout = new ctr_callout('Error', 'Client not found.');
+
+        $template->write($callout->error());
+        return;
+    }
+
     controller_client::remove($values['uid']);
+
+    $template->showInfo('Client has been removed');
+
     header('location: ?r=client&a=client_show');
+}
+
+function app_event_client_add_client_log($template, $values){
+    global $user_login;
+
+    $template->write($values, true);
+
+    //header('location: ?r=client&a=client_view&uid='.$values['client_uid']);
 }
 
 function app_event_default($template, $values){
