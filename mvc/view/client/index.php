@@ -19,6 +19,7 @@ function app_event_client_show($template, $values){
 
     $table = ui_table::newTable('table1');
 
+    $table->addHeader('count','#');
     $table->addHeader('name', 'Name');
     $table->addHeader('email','Email');
     $table->addHeader('phone','Phone');
@@ -29,7 +30,8 @@ function app_event_client_show($template, $values){
     $table->addAction('trash',          'r=client&a=client_remove&uid=uid%');
 
     $clients = controller_client::getUserClients($user_login['uid']);
-    foreach ($clients as $client) {
+    foreach ($clients as $index => $client){
+        $client['count'] = ($index+1);
         $table->addRow($client);
     }
 
