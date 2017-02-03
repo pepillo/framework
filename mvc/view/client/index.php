@@ -73,7 +73,9 @@ function app_event_client_save($template, $values){
     if($data['id'] > 0){
         controller_client::updateEntry($data);
     } else {
-        $data['uid'] = uniqid();
+        $data['uid']   = uniqid();
+        $data['stamp'] = date('Y-m-d H:i:s');
+
         controller_client::addEntry($data);
     }
 
@@ -315,9 +317,20 @@ function app_event_client_remove($template, $values){
 function app_event_client_add_client_log($template, $values){
     global $user_login;
 
-    $template->write($values, true);
+    $data = [
+        'uid'        => uniqid(),
+        'user_uid'   => $user_login['uid'],
+        'client_uid' => $values['client_uid'],
+        'comment'    => $values['comment'],
+        'stamp'      => date('Y-m-d H:i:s'),
+    ];
 
-    //header('location: ?r=client&a=client_view&uid='.$values['client_uid']);
+    $rs = new model_client_log($data);
+    $rs->save();
+
+    $template->showSuccess('Client comment has been added.');
+
+    header('location: ?r=client&a=client_view&uid='.$values['client_uid']);
 }
 
 function app_event_default($template, $values){
