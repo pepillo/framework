@@ -2,7 +2,7 @@
 require_once("./engine/framework/framework.php");
 
 session_start();
-
+#TEST FROM MAC13
 $framework = new framework();
 #TODO catch error and send to error page
 
