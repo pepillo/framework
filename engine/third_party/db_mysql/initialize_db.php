@@ -4,7 +4,7 @@
 	require_once('storage.php');
 	require_once('controller_main.php');
 
-	global $db;
+	global $db, $db_config;
 
 	$db_local = [
 		'host'     => '127.0.0.1',
