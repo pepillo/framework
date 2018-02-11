@@ -350,6 +350,7 @@ class template{
                 $this->variable_replace['%LEFT_SIDEBAR%'] = '';
                 $this->variable_replace['%CONTENT%']      = '';
                 $this->variable_replace['%ALERT%']        = '';
+                $this->variable_replace['%YEAR%']         = date('Y');
             }
 
             $this->showAlert();

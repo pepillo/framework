@@ -140,7 +140,8 @@ class ui_table{
                     'searching': true,
                     'ordering': true,
                     'info': true,
-                    'autoWidth': true
+                    'autoWidth': true,
+                    'lengthMenu': [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, 'All']]
                 });
                 </script>";
 

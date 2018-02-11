@@ -47,6 +47,8 @@ function app_event_client_show($template, $values){
     $container->addSubmitBtn('Add Client');
     $container->appendItem($table);
 
+    $container->addLinkBtn('Download Excel', 'r=client&a=client_csv');
+
     $template->write($container);
 }
 
@@ -335,8 +337,16 @@ function app_event_client_add_client_log($template, $values){
     header('location: ?r=client&a=client_view&uid='.$values['client_uid']);
 }
 
+function app_event_client_csv($template, $values){
+    $template->write('CSV');
+}
+
 function app_event_default($template, $values){
 
+}
+
+function app_event_test($template, $values){
+    $template->write('IN TEMPLATE');
 }
 
 function app_end(){

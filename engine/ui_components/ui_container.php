@@ -41,7 +41,7 @@ class ui_container{
     }
 
     public function addLinkBtn($tag='Submit', $href='#'){
-        $this->footer .= "<a href='?{$href}'><button class='btn btn-primary'>{$tag}</button></a>\n";
+        $this->footer .= "<a href='?{$href}'><div class='btn btn-primary'>{$tag}</div></a>\n";
     }
 
     public function setIcon($icon){

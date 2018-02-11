@@ -18,6 +18,7 @@ define('ENGINE_DIR',           $web_root.'engine/');
 define('UI_COMPONENTS',        ENGINE_DIR.'ui_components/');
 define('THIRD_PARTY_DIR',      ENGINE_DIR.'third_party/');
 define('DB_MYSQL',             THIRD_PARTY_DIR.'db_mysql/');
+define('CSV',                  THIRD_PARTY_DIR.'csv-8.2.3/');
 
 define('FRAMEWORK_DIR',        ENGINE_DIR.'framework/');
 define('FRAMEWORK_TEMPLATE',   FRAMEWORK_DIR.'framework_template.php');

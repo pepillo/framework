@@ -3,6 +3,9 @@ require_once(DB_MYSQL.'initialize_db.php');
 require_once(THIRD_PARTY_DIR.'dompdf/autoload.inc.php');
 use Dompdf\Dompdf;
 
+require_once(THIRD_PARTY_DIR.'csv-8.2.3/autoload.php');
+use League\Csv\Writer;
+
 #This is called at the start (before) the call of any app_event
 function app_start($template, $values){
     global $db;
@@ -23,6 +26,10 @@ function app_start($template, $values){
         ['label' => 'PDF JS 1','href' => 'r=example&a=pdf_js_1'],
         ['label' => 'PDF JS 2','href' => 'r=example&a=pdf_js_2'],
         ['label' => 'PDF JS 3','href' => 'r=example&a=pdf_js_3'],
+    ]);
+
+    $template->menu->addMenuElement('CSV Example', 'list', [
+        ['label' => 'CSV Test 1','href' => 'r=example&a=test_csv'],
     ]);
 }
 
@@ -323,6 +330,24 @@ function app_event_pdf_js_3($template, $values){
 
     //$template->write('?r=example&a=pdf_header&content='.(serialize($dompdf)), true);
     //$template->write($content, true);
+}
+
+function app_event_test_csv($template, $values){
+  header('Content-Type: text/csv; charset=UTF-8');
+  header('Content-Disposition: attachment; filename="name-for-your-file.csv"');
+
+  $rows = [
+      [1, 2, 3],
+      ['foo', 'bar', 'baz'],
+      "'john','doe','john.doe@example.com'",
+  ];
+
+  $writer = Writer::createFromFileObject(new SplTempFileObject());
+  $writer->insertAll($rows); //using an array
+  $writer->insertAll(new ArrayIterator($rows)); //using a Traversable object
+  $writer->output();
+
+  exit;
 }
 
 #This is called at the end (after) the call of any app_event
