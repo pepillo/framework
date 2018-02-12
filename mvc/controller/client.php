@@ -47,13 +47,46 @@ class controller_client extends controller_main{
         $client_logs_array = [];
 
         foreach($client_logs as $log){
-            $array = $log->toArray();;
+            $array = $log->toArray();
             $array['stamp_display'] = date('d/M/Y h:i A', strtotime($array['stamp']));
 
             $client_logs_array[] = $array;
         }
 
         return $client_logs_array;
+    }
+
+    private static function format($data=[], $exclude=[]){
+        $out = $data;
+
+        $out['credit_score']        = str_replace(';', '-', $out['credit_score']);
+        $out['spouse_credit_score'] = str_replace(';', '-', $out['spouse_credit_score']);
+        $out['marriage_contract']   = ($out['marriage_contract']) ? 'True' : 'False';
+        //$out['search_location']     = mb_convert_encoding($out['search_location'], 'UTF-16LE', 'UTF-8');
+
+        foreach ($exclude as $value) {
+            unset($out[$value]);
+        }
+
+        return $out;
+    }
+
+    public static function getFormat($data=[], $exclude=['id','user_uid','uid','visible','attr','stamp']){
+        if(!is_array($data)) return [];
+
+        $multi_array_bool = is_array($data[0]) ? true : false;
+
+        if($multi_array_bool == false){
+            return self::format($data, $exclude);
+        }
+
+        $out = [];
+
+        foreach ($data as $value) {
+            $out[] = self::format($value, $exclude);
+        }
+
+        return $out;
     }
 }
 ?>

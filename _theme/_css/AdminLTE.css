@@ -99,6 +99,9 @@ body {
  * Content Wrapper - contains the main content
  * ```.right-side has been deprecated as of v2.0.0 in favor of .content-wrapper  ```
  */
+ .right-float {
+   float: right;
+ }
 .content-wrapper,
 .right-side,
 .main-footer {

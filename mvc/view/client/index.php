@@ -1,6 +1,7 @@
 <?php
 require_once(DB_MYSQL.'initialize_db.php');
 require_once(MVC_CONTROLLER.'client.php');
+require_once(SPREADSHEET);
 
 function app_start($template, $values){
     global $pueblos;
@@ -47,7 +48,7 @@ function app_event_client_show($template, $values){
     $container->addSubmitBtn('Add Client');
     $container->appendItem($table);
 
-    $container->addLinkBtn('Download Excel', 'r=client&a=client_csv');
+    $container->addLinkBtn('Download Excel', 'r=client&a=client_csv', 'right-float');
 
     $template->write($container);
 }
@@ -338,7 +339,22 @@ function app_event_client_add_client_log($template, $values){
 }
 
 function app_event_client_csv($template, $values){
-    $template->write('CSV');
+    global $user_login;
+
+    $clients = controller_client::getUserClients($user_login['uid']);
+    $clients = controller_client::getFormat($clients);
+
+    $header = array_keys($clients[0]);
+    $header = array_map('strtolower', $header);
+    $header = array_map('ucwords', $header);
+    $header = str_replace('_', ' ', $header);
+
+    $encode = ['name', 'current_location', 'search_location', 'spouse_name'];
+
+    //$template->write($header, true);
+    //return;
+
+    spreadsheet::out('clients_'.date('d_M_Y').'.csv', $clients, $header, $encode);
 }
 
 function app_event_default($template, $values){
