@@ -2401,6 +2401,9 @@ a:focus {
 .callout.callout-info {
   border-color: #0097bc;
 }
+.callout.callout-info:empty {
+   display: none;
+}
 .callout.callout-success {
   border-color: #00733e;
 }

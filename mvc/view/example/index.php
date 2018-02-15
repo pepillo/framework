@@ -19,6 +19,7 @@ function app_start($template, $values){
     $template->menu->addMenuElement('Basic Layout', 'map-o', 'r=example&a=basic_layout', null);
     $template->menu->addMenuElement('Form', 'list-alt', 'r=example&a=form', null);
     $template->menu->addMenuElement('Table', 'table', 'r=example&a=table', null);
+    $template->menu->addMenuElement('PHP Info', 'table', 'r=example&a=phpinfo', null);
 
     $template->menu->addMenuElement('PDF Example', 'list', [
         ['label' => 'PDF Header Test','href' => 'r=example&a=pdf_header_test'],
@@ -348,6 +349,11 @@ function app_event_test_csv($template, $values){
   $writer->output();
 
   exit;
+}
+
+function app_event_phpinfo($template, $values){
+    phpinfo();
+    exit;
 }
 
 #This is called at the end (after) the call of any app_event

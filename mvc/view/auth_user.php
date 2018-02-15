@@ -7,15 +7,17 @@ function app_start($template, $values){
 
     $template->setTitle('RealtorHeart - Login');
     $template->setTemplateSource('empty.html');
-}
 
-function app_event_default($template, $values){
     if(isset($_SESSION['user_session'])){
         header('location: ?r=home&a=dashboard');
     }
+}
 
+function app_event_default($template, $values){
     $body_variable = [
-        'error' => '',
+        'error'         => '',
+        'href_forgot'   => '?r=auth_user&a=forgot_email',
+        'href_register' => '?r=auth_user&a=register_account',
     ];
 
     if(isset($values['email']) && isset($values['password'])){
@@ -35,6 +37,42 @@ function app_event_default($template, $values){
     $body = $body_part_obj->getHTML();
 
     $template->addVariable('%BODY%', $body);
+}
+
+function app_event_register_account($template, $values){
+    $body_variable = [
+        'error'        => '',
+        'success'      => '',
+        'href_sign_in' => '?r=auth_user',
+
+        'name'             => isset($values['name'])             ? $values['name']             : '',
+        'email'            => isset($values['email'])            ? $values['email']            : '',
+        'password'         => isset($values['password'])         ? $values['password']         : '',
+        'password_confirm' => isset($values['password_confirm']) ? $values['password_confirm'] : '',
+    ];
+
+    if(isset($values['submit'])){
+        $is_valid_account = controller_user::validUserData($values);
+
+        if($is_valid_account !== true){
+            $body_variable['error'] = $is_valid_account;
+        } else {
+            $insert = controller_user::insertUserTempAccount($values);
+
+            $body_variable['success'] = ($insert != true) ? '' : '<h4>Thank You!</h4><p>Please check your email ('.$values['email'].') to activate your account.</p>';
+            $body_variable['error']   = ($insert != true) ? 'Account could not be created.' : '';
+        }
+    }
+
+    $body_part_obj = body_part::newBodyPart('register.html', $body_variable);
+
+    $body = $body_part_obj->getHTML();
+
+    $template->addVariable('%BODY%', $body);
+}
+
+function app_event_forgot_email($template, $values){
+
 }
 
 function app_event_logout($template, $values){
