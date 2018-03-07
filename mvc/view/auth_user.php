@@ -52,16 +52,10 @@ function app_event_register_account($template, $values){
     ];
 
     if(isset($values['submit'])){
-        $is_valid_account = controller_user::validUserData($values);
+        $insert = controller_user::insertUserTempAccount($values);
 
-        if($is_valid_account !== true){
-            $body_variable['error'] = $is_valid_account;
-        } else {
-            $insert = controller_user::insertUserTempAccount($values);
-
-            $body_variable['success'] = ($insert != true) ? '' : '<h4>Thank You!</h4><p>Please check your email ('.$values['email'].') to activate your account.</p>';
-            $body_variable['error']   = ($insert != true) ? 'Account could not be created.' : '';
-        }
+        $body_variable['success'] = ($insert !== true) ? '' : '<h4>Thank You!</h4><p>Please check your email ('.$values['email'].') to activate your account.</p>';
+        $body_variable['error']   = ($insert !== true) ? $insert : '';
     }
 
     $body_part_obj = body_part::newBodyPart('register.html', $body_variable);

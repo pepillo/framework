@@ -76,6 +76,7 @@ function app_event_client_save($template, $values){
     ];
 
     if($data['id'] > 0){
+        #TODO: Should check if valid record in DB first
         controller_client::updateEntry($data);
     } else {
         $data['uid']   = uniqid();

@@ -79,18 +79,59 @@ class controller_user extends controller_main{
     }
 
     public static function insertUserTempAccount($params=null){
-        if(!is_array($params)) return false;
+        $is_valid_account_data = self::validUserData($params);
+
+        if($is_valid_account_data !== true){
+            return $is_valid_account_data;
+        }
+
+        #LOGIC INSERT IN ACCOUNT_TEMP
+        controller_user_temp::insertToTemp($params);
 
         return true;
     }
 }
 
 class controller_user_temp extends controller_main{
-    public static $table = 'user_temp'; #DOES NOT EXIST YET
-    public static $model = 'model_user';
+    public static $table = 'user_temp';
+    public static $model = 'model_user_temp';
 
     public function __construct(){
 
+    }
+
+    public static function insertToTemp(array $params){
+        #TODO: Run cron to expire record by set status = 2
+        $temp = self::$model::where('email', $params['email'])
+                            ->where('status', 0)
+                            ->getOne();
+
+        $data = [
+            'name'           => $params['name'],
+            'email'          => $params['email'],
+            'password'       => $params['password'],
+            'status'         => 0,
+            'validation_key' => uniqid('KEY'),
+            'stamp'          => date('Y-m-d H:i:s'),
+        ];
+
+        #New Temp User
+        if(is_null($temp)){
+            $data['uid'] = uniqid();
+
+            self::addEntry($data);
+        }
+        #Update User Temp Record
+        else {
+            $data['uid'] = $temp->uid;
+            self::updateEntry($data, false, false);
+        }
+
+        self::validationEmail($data);
+    }
+
+    private static function validationEmail($user_temp_data){
+        //SEND EMAIL WITH LINK TO VERIFY ... Contain validation_key and email
     }
 }
 ?>
