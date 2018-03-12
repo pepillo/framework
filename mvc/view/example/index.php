@@ -38,8 +38,9 @@ function app_start($template, $values){
     ]);
 
     $template->menu->addMenuElement('PHP Mailer', 'list', [
-        ['label' => 'Mail Example','href' => 'r=example&a=phpmailer'],
+        ['label' => 'Mail Example','href'   => 'r=example&a=phpmailer'],
         ['label' => 'Mail New Class','href' => 'r=example&a=phpmailer_new_class'],
+        ['label' => 'Mail Static','href'    => 'r=example&a=phpmailer_static'],
     ]);
 }
 
@@ -404,7 +405,7 @@ function app_event_phpmailer($template, $values){
 }
 
 function app_event_phpmailer_new_class($template, $values){
-    $template->write('Work! Email Sent to fullmetalpepillo@gmail.com NEW CLASS<hr>');
+    $template->write('Work! Email Sent to jose.delgado12@upr.edu NEW CLASS<hr>');
 
     $mail = new php_mail();
     $mail->mail('jose.delgado12@upr.edu', 'Test Subject', 'Test Message');
@@ -416,6 +417,16 @@ function app_event_phpmailer_new_class($template, $values){
     }
 
     $template->write($mail, true);
+}
+
+function app_event_phpmailer_static($template, $values){
+    $template->write('Work! Email Sent to jose.delgado12@upr.edu STATIC<hr>');
+
+    if(!php_mail::send('jose.delgado12@upr.edu', 'Test Subject Static', 'Test Message Static')){
+        $template->write('Yes Error');
+    } else {
+        $template->write('No Error');
+    }
 }
 
 function app_event_phpinfo($template, $values){

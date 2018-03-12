@@ -135,6 +135,16 @@ class php_mail {
         return $this;
     }
 
+    public static function create(){
+        return new php_mail();
+    }
+
+    public static function send($to, string $subject, string $body, $from=null){
+        $mail = new php_mail();
+
+        return $mail->mail($to, $subject, $body, $from);
+    }
+
     public function mail($to=null, $subject=null, $body=null, $from=null){
         $this->from($from);
         $this->addAddress($to);
