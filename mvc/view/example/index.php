@@ -6,6 +6,10 @@ use Dompdf\Dompdf;
 require_once(THIRD_PARTY_DIR.'csv-8.2.3/autoload.php');
 use League\Csv\Writer;
 
+require_once(PHPMAILER);
+use \PHPMailer\PHPMailer\PHPMailer;
+use \PHPMailer\PHPMailer\Exception;
+
 #This is called at the start (before) the call of any app_event
 function app_start($template, $values){
     global $db;
@@ -23,14 +27,19 @@ function app_start($template, $values){
 
     $template->menu->addMenuElement('PDF Example', 'list', [
         ['label' => 'PDF Header Test','href' => 'r=example&a=pdf_header_test'],
-        ['label' => 'PDF 1','href' => 'r=example&a=pdf_test_1'],
-        ['label' => 'PDF JS 1','href' => 'r=example&a=pdf_js_1'],
-        ['label' => 'PDF JS 2','href' => 'r=example&a=pdf_js_2'],
-        ['label' => 'PDF JS 3','href' => 'r=example&a=pdf_js_3'],
+        ['label' => 'PDF 1','href'           => 'r=example&a=pdf_test_1'],
+        ['label' => 'PDF JS 1','href'        => 'r=example&a=pdf_js_1'],
+        ['label' => 'PDF JS 2','href'        => 'r=example&a=pdf_js_2'],
+        ['label' => 'PDF JS 3','href'        => 'r=example&a=pdf_js_3'],
     ]);
 
     $template->menu->addMenuElement('CSV Example', 'list', [
         ['label' => 'CSV Test 1','href' => 'r=example&a=test_csv'],
+    ]);
+
+    $template->menu->addMenuElement('PHP Mailer', 'list', [
+        ['label' => 'Mail Example','href' => 'r=example&a=phpmailer'],
+        ['label' => 'Mail New Class','href' => 'r=example&a=phpmailer_new_class'],
     ]);
 }
 
@@ -349,6 +358,64 @@ function app_event_test_csv($template, $values){
   $writer->output();
 
   exit;
+}
+
+function app_event_phpmailer($template, $values){
+    $template->write('Work! Email Sent to fullmetalpepillo@gmail.com & jose.delgado12@upr.edu<hr>');
+
+    //return;
+
+    $mail = new PHPMailer(/*true*/);                              # Passing `true` enables exceptions
+
+    try {
+        #Server settings
+        //$mail->SMTPDebug = 2;                                 # Enable verbose debug output
+        //$mail->isSMTP();                                      # Set mailer to use SMTP
+        //$mail->Host = 'smtp1.example.com;smtp2.example.com';  # Specify main and backup SMTP servers
+        //$mail->SMTPAuth = true;                               # Enable SMTP authentication
+        //$mail->Username = 'user@example.com';                 # SMTP username
+        //$mail->Password = 'secret';                           # SMTP password
+        //$mail->SMTPSecure = 'tls';                            # Enable TLS encryption, `ssl` also accepted
+        //$mail->Port = 587;                                    # TCP port to connect to
+
+        #Recipients
+        $mail->setFrom('realtor@realtorheart.com', 'Mailer');
+        $mail->addAddress('fullmetalpepillo@gmail.com', 'Fullmetal User');      # Add a recipient
+        $mail->addAddress('jose.delgado12@upr.edu');                            # Name is optional
+        //$mail->addReplyTo('realtor@realtorheart.com', 'Information');
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
+
+        #Attachments
+        //$mail->addAttachment('/var/tmp/file.tar.gz');         # Add attachments
+        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    # Optional name
+
+        #Content
+        $mail->isHTML(true);                                  # Set email format to HTML
+        $mail->Subject = 'Here is the subject';
+        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        $mail->send();
+        $template->write('Message has been sent');
+    } catch (Exception $e) {
+        $template->write('Message could not be sent. Mailer Error: ', $mail->ErrorInfo);
+    }
+}
+
+function app_event_phpmailer_new_class($template, $values){
+    $template->write('Work! Email Sent to fullmetalpepillo@gmail.com NEW CLASS<hr>');
+
+    $mail = new php_mail();
+    $mail->mail('jose.delgado12@upr.edu', 'Test Subject', 'Test Message');
+
+    if(!$mail->error){
+        $template->write('No Error');
+    } else {
+        $template->write('Yes Error');
+    }
+
+    $template->write($mail, true);
 }
 
 function app_event_phpinfo($template, $values){

@@ -19,6 +19,7 @@ define('UI_COMPONENTS',        ENGINE_DIR.'ui_components/');
 define('THIRD_PARTY_DIR',      ENGINE_DIR.'third_party/');
 define('DB_MYSQL',             THIRD_PARTY_DIR.'db_mysql/');
 define('SPREADSHEET',          THIRD_PARTY_DIR.'csv-8.2.3/include.php');
+define('PHPMAILER',            THIRD_PARTY_DIR.'PHPMailer/include.php');
 
 define('FRAMEWORK_DIR',        ENGINE_DIR.'framework/');
 define('FRAMEWORK_TEMPLATE',   FRAMEWORK_DIR.'framework_template.php');

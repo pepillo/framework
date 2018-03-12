@@ -15,6 +15,7 @@ function app_start($template, $values){
 
 function app_event_default($template, $values){
     $body_variable = [
+        'success'       => '',
         'error'         => '',
         'href_forgot'   => '?r=auth_user&a=forgot_email',
         'href_register' => '?r=auth_user&a=register_account',
@@ -40,6 +41,7 @@ function app_event_default($template, $values){
 }
 
 function app_event_register_account($template, $values){
+    $body_part     = 'register.html';
     $body_variable = [
         'error'        => '',
         'success'      => '',
@@ -54,11 +56,15 @@ function app_event_register_account($template, $values){
     if(isset($values['submit'])){
         $insert = controller_user::insertUserTempAccount($values);
 
-        $body_variable['success'] = ($insert !== true) ? '' : '<h4>Thank You!</h4><p>Please check your email ('.$values['email'].') to activate your account.</p>';
-        $body_variable['error']   = ($insert !== true) ? $insert : '';
+        if($insert === true){
+            $body_part = 'login.html';
+            $body_variable['success'] = '<h4>Thank You!</h4><p>Please check your email ('.$values['email'].') to activate your account.</p>';
+        } else {
+            $body_variable['error'] = $insert;
+        }
     }
 
-    $body_part_obj = body_part::newBodyPart('register.html', $body_variable);
+    $body_part_obj = body_part::newBodyPart($body_part, $body_variable);
 
     $body = $body_part_obj->getHTML();
 
