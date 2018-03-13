@@ -26,11 +26,11 @@ function app_start($template, $values){
     $template->menu->addMenuElement('PHP Info', 'table', 'r=example&a=phpinfo', null);
 
     $template->menu->addMenuElement('PDF Example', 'list', [
-        ['label' => 'PDF Header Test','href' => 'r=example&a=pdf_header_test'],
-        ['label' => 'PDF 1','href'           => 'r=example&a=pdf_test_1'],
-        ['label' => 'PDF JS 1','href'        => 'r=example&a=pdf_js_1'],
-        ['label' => 'PDF JS 2','href'        => 'r=example&a=pdf_js_2'],
-        ['label' => 'PDF JS 3','href'        => 'r=example&a=pdf_js_3'],
+        ['label' => 'PDF Header Test', 'href' => 'r=example&a=pdf_header_test'],
+        ['label' => 'PDF 1',           'href' => 'r=example&a=pdf_test_1'],
+        ['label' => 'PDF JS 1',        'href' => 'r=example&a=pdf_js_1'],
+        ['label' => 'PDF JS 2',        'href' => 'r=example&a=pdf_js_2'],
+        ['label' => 'PDF JS 3',        'href' => 'r=example&a=pdf_js_3'],
     ]);
 
     $template->menu->addMenuElement('CSV Example', 'list', [
@@ -38,9 +38,10 @@ function app_start($template, $values){
     ]);
 
     $template->menu->addMenuElement('PHP Mailer', 'list', [
-        ['label' => 'Mail Example','href'   => 'r=example&a=phpmailer'],
-        ['label' => 'Mail New Class','href' => 'r=example&a=phpmailer_new_class'],
-        ['label' => 'Mail Static','href'    => 'r=example&a=phpmailer_static'],
+        ['label' => 'Mail Example',        'href' => 'r=example&a=phpmailer'],
+        ['label' => 'Mail New Class',      'href' => 'r=example&a=phpmailer_new_class'],
+        ['label' => 'Mail Static',         'href' => 'r=example&a=phpmailer_static'],
+        ['label' => 'Validate Email html', 'href' => 'r=example&a=phpmailer_validate_email'],
     ]);
 }
 
@@ -239,7 +240,7 @@ function app_event_pdf_js_1($template, $values){
             doc.text("Hello world!", 10, 10)
             doc.save("a4.pdf")
             </script>';
-    $template->write($html.$js);
+    $template->write($js);
 }
 
 function app_event_pdf_js_2($template, $values){
@@ -426,6 +427,115 @@ function app_event_phpmailer_static($template, $values){
         $template->write('Yes Error');
     } else {
         $template->write('No Error');
+    }
+}
+
+function app_event_phpmailer_validate_email($template, $values){
+    $template->write('Sent validation EMAIL TEMPLATE to jose.delgado12@upr.edu<hr>'.getcwd().'<br>');
+
+    $html = '
+    <div bgcolor="#F2F6FA" style="color:#536a87;font-size:inherit;line-height:inherit;margin:0;padding:0;height:100%;width:100%;font-family:arial,verdana,sans-serif;background-color:#f2f6fa">
+     <table align="center" width="100%" height="90px" cellpadding="0" cellspacing="0" bgcolor="#F2F6FA" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;background-color:#f2f6fa">
+        <tbody>
+           <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+              <td align="center" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                 <div style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;margin-bottom:30px">
+                 	<img src="http://realtorheart.com/_theme/_img/logo.png" width="350" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                 </div>
+              </td>
+           </tr>
+        </tbody>
+     </table>
+     <table cellpadding="0" cellspacing="0" bgcolor="#F2F6FA" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;width:100%;background-color:#f2f6fa" width="100%">
+        <tbody>
+           <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+              <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                 <div style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;margin:0 auto;max-width:500px;background-color:white;border-radius:8px;overflow:hidden">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                       <tbody>
+                          <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                             <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                                <table width="100%" cellpadding="0" cellspacing="0" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;margin:auto;max-width:500px">
+                                   <tbody>
+                                      <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                                         <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;background-color:white" bgcolor="white">
+                                            <p style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:20px;line-height:30px;margin:30px 40px"><strong style="font-family:arial,verdana,sans-serif;font-size:inherit;line-height:inherit;color:#26334d">You signed up for a RealtorHeart account!</strong> <br style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">Please confirm your ownership of this email address by clicking the link below:</p>
+                                         </td>
+                                      </tr>
+                                      <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                                         <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;background-color:white;text-align:center" bgcolor="white" align="center">
+                                            <div style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;margin-bottom:40px;width:100%;text-align:center">
+                                               <a href="https://privacy.com/confirm-email/VRZBXFPNB" style="font-family:arial,verdana,sans-serif;display:block;margin:0 40px 0 40px;font-size:16px;font-weight:700;color:#ffffff;background-color:#24aef2;border-radius:100px;text-decoration:none;text-align:center;line-height:46px;margin-bottom:40px" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://privacy.com/confirm-email/VRZBXFPNB&amp;source=gmail&amp;ust=1520994112461000&amp;usg=AFQjCNGiKSXKPpIHkx1AONiANW_QKRBGZg">Confirm email address</a>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                      <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                                         <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;background-color:#fafbfd;border-top:1px solid #e4e6eb" bgcolor="#FAFBFD">
+                                            <h4 style="font-family:arial,verdana,sans-serif;line-height:inherit;color:#26334d;margin:30px 40px;font-size:16px;margin-bottom:20px">Not expecting this email?</h4>
+                                            <p style="font-family:arial,verdana,sans-serif;color:#536a87;margin:30px 40px;margin-top:20px;font-size:14px;line-height:20px;margin-bottom:30px">If you received this by mistake or weren\'t expecting it, please disregard this email.</p>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>
+              </td>
+           </tr>
+           <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+              <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                 <div style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit;margin:auto;max-width:500px">
+                       <tbody>
+                          <tr style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                             <td style="font-family:arial,verdana,sans-serif;color:#536a87;font-size:inherit;line-height:inherit">
+                                <p style="font-family:arial,verdana,sans-serif;color:#536a87;line-height:inherit;margin:20px 40px;font-size:12px;text-align:center">
+                                	<a href="http://realtorheart.com" style="font-family:arial,verdana,sans-serif;font-size:inherit;line-height:inherit;text-decoration:none;color:#26334d" target="_blank">
+                                		RealtorHeart.com
+                                	</a>
+                                </p>
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>
+              </td>
+           </tr>
+        </tbody>
+     </table>
+    </div>
+    ';
+
+    //$template->write($html);
+
+    $body_part = 'email.html';
+    $body_variable = [
+        'logo'               => 'http://realtorheart.com/_theme/_img/logo.png',
+        'address'            => 'http://realtorheart.com',
+        'href_email_confirm' => '?r=not_exist_yet',
+    ];
+
+    #DEV
+    if(in_array($_SERVER["SERVER_ADDR"], ["127.0.0.1","::1"])){
+        $body_variable = [
+            'logo'               => './_theme/_img/logo.png',
+            'address'            => 'http://localhost:8888/GitHub/framework/',
+            'href_email_confirm' => 'http://localhost:8888/GitHub/framework/?r=auth_user&a=validate_email',
+        ];
+    }
+
+    $body_part_obj = body_part::newBodyPart($body_part, $body_variable);
+
+    $template->write($body_part_obj->getHTML());
+
+    return;
+
+    if(!php_mail::send('jose.delgado12@upr.edu', 'Verify your RealtorHeart.com Account', $html)){
+        $template->write('Error, COuld not send email.');
+    } else {
+        $template->write($html);
     }
 }
 

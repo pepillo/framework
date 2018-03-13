@@ -71,6 +71,52 @@ function app_event_register_account($template, $values){
     $template->addVariable('%BODY%', $body);
 }
 
+function app_event_validate_email($template, $values){
+    if(!isset($values['email']) || !isset($values['key'])){
+        app_event_logout($template, $values);
+        return;
+    }
+
+    $user_temp = model_user_temp::where('email',          $values['email'])
+                                ->where('validation_key', $values['key'])
+                                //->where('status',         0)
+                                ->getOne();
+
+    if($user_temp->status == 1){
+        #TODO
+        #Account has already been validates
+        return;
+    }
+
+    if(is_null($user_temp)){
+        #TODO
+        #ERROR, not found in db
+        return;
+    }
+
+    $user_new = new model_user([
+        'uid'      => strtoupper(uniqid('UID')),
+        'name'     => $user_temp->name,
+        'email'    => $user_temp->email,
+        'password' => $user_temp->password,
+        'stamp'    => date('Y-m-d H:i:s'),
+    ]);
+
+    if($user_new->save() && $user_temp->save(['status'=>1])){
+        #TODO::Set messag box indicatind email has been verify
+        activateLoginSeccion($user_new);
+        return;
+    }
+
+    /*
+    $out = '<pre>'.print_r($values, true).'</pre>';
+    $out .= '<pre>'.print_r($user_temp->data, true).'</pre>';
+    $out .= '<pre>'.print_r($user_new, true).'</pre>';
+
+    $template->addVariable('%BODY%', $out);
+    */
+}
+
 function app_event_forgot_email($template, $values){
 
 }

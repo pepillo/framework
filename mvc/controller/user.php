@@ -1,5 +1,6 @@
 <?php
 require_once(MVC_MODEL.'user.php');
+require_once(PHPMAILER);
 
 class controller_user extends controller_main{
     public static $table = 'user';
@@ -127,11 +128,34 @@ class controller_user_temp extends controller_main{
             self::updateEntry($data, false, false);
         }
 
-        self::validationEmail($data);
+        return self::validationEmail($data);
     }
 
     private static function validationEmail($user_temp_data){
-        //SEND EMAIL WITH LINK TO VERIFY ... Contain validation_key and email
+        $body_part = 'email.html';
+        $body_variable = [
+            'logo'               => 'http://realtorheart.com/_theme/_img/logo.png',
+            'address'            => 'http://realtorheart.com',
+            'href_email_confirm' => "http://realtorheart.com/?r=auth_user&a=validate_email&email={$user_temp_data['email']}&key={$user_temp_data['validation_key']}",
+        ];
+
+        #DEV
+        if(in_array($_SERVER["SERVER_ADDR"], ["127.0.0.1","::1"])){
+            $body_variable = [
+                'logo'               => 'http://realtorheart.com/_theme/_img/logo.png',//'./_theme/_img/logo.png',
+                'address'            => 'http://localhost:8888/GitHub/framework/',
+                'href_email_confirm' => "http://localhost:8888/GitHub/framework/?r=auth_user&a=validate_email&email={$user_temp_data['email']}&key={$user_temp_data['validation_key']}",
+            ];
+        }
+
+        $body_part_obj = body_part::newBodyPart($body_part, $body_variable);
+        $html = $body_part_obj->getHTML();
+
+        if(!php_mail::send('jose.delgado12@upr.edu', 'Verify your RealtorHeart.com Account', $html)){
+            return true;
+        }
+
+        return false;
     }
 }
 ?>
